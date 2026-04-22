@@ -211,6 +211,8 @@
     .proj-links { margin-top: 14px; display: flex; gap: 14px; }
     .proj-links a { font-size: 0.8rem; }
     .proj-wip { border-style: dashed; opacity: .65; }
+    .proj-plate { border-color: rgba(57,211,83,.35) !important; background: rgba(57,211,83,.03); }
+    .proj-plate:hover { border-color: var(--green) !important; box-shadow: 0 0 40px rgba(57,211,83,.18), 0 0 80px rgba(57,211,83,.06); transform: translateY(-4px); }
 
     /* CONTACT */
     .contact-inner { max-width: 560px; margin: 0 auto; text-align: center; }
@@ -581,13 +583,53 @@
       </div>
     </div>
 
-    <div class="proj-card proj-wip reveal">
-      <div class="proj-type">Cybersecurity · In Progress</div>
-      <h3>Coming Soon</h3>
-      <p>A cybersecurity-focused tool currently in development. Follow on GitHub for updates.</p>
-      <div class="stack-row">
-        <span class="s-tag">Python</span><span class="s-tag">Security</span>
-        <span class="s-tag">TBD</span>
+    <div class="proj-card proj-plate reveal" style="grid-column: 1 / -1;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+        <div style="flex:1; min-width:260px;">
+          <div class="proj-type">Active Directory Security · Python Tool</div>
+          <h3 style="font-size:1.5rem; margin-bottom:10px;">
+            <span style="color:var(--green); font-family:var(--font);">PLATE</span>
+            <span style="color:var(--muted); font-size:0.85rem; font-weight:400; margin-left:10px;">AD Attack Surface Reporting Tool</span>
+          </h3>
+          <p style="font-size:0.92rem; max-width:680px;">
+            Point PLATE at a Domain Controller — it automatically interrogates the entire AD environment
+            and produces a professional pentest report. Covers Kerberoasting, AS-REP roasting, ACL misconfigurations,
+            unconstrained delegation, LAPS, Print Spooler, DCSync rights, and full
+            <span style="color:var(--red);">ADCS ESC1–ESC8</span> certificate abuse checks.
+            BloodHound JSON integration correlates attack paths automatically.
+          </p>
+          <div class="stack-row" style="margin-top:14px;">
+            <span class="s-tag">Python</span>
+            <span class="s-tag">impacket</span>
+            <span class="s-tag">ldap3</span>
+            <span class="s-tag">ADCS</span>
+            <span class="s-tag">BloodHound</span>
+            <span class="s-tag">Kerberos</span>
+            <span class="s-tag">ACL Analysis</span>
+            <span class="s-tag">HTML/PDF Report</span>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px; min-width:200px;">
+          <div style="background:rgba(57,211,83,.06); border:1px solid rgba(57,211,83,.2); border-radius:8px; padding:14px 18px;">
+            <div style="font-family:var(--font); font-size:0.7rem; color:var(--green); margin-bottom:6px;">WHAT IT FINDS</div>
+            <div style="font-size:0.78rem; color:var(--muted); line-height:1.8;">
+              ESC1–ESC8 (ADCS)<br>
+              Kerberoastable accounts<br>
+              AS-REP roastable accounts<br>
+              DCSync rights<br>
+              Unconstrained delegation<br>
+              ACL misconfigurations<br>
+              LAPS · Print Spooler
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:18px; background:#000; border:1px solid rgba(57,211,83,.2); border-radius:6px; padding:12px 16px; font-family:var(--font); font-size:0.8rem; color:var(--green);">
+        <span style="color:var(--muted);">$ </span>python plate.py -t 192.168.1.10 -u john -p Password123 -d domain.local -o pdf
+      </div>
+      <div class="proj-links" style="margin-top:16px;">
+        <a href="https://github.com/MohammedAlArjan/PLATE" target="_blank" style="color:var(--green); font-weight:600;">→ View on GitHub</a>
+        <a href="https://github.com/MohammedAlArjan/PLATE/blob/master/README.md" target="_blank">→ Documentation</a>
       </div>
     </div>
 
