@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohammed Al Arjan | Penetration Tester</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --border: #30363d;
+      --green: #39d353;
+      --cyan: #58a6ff;
+      --red: #f85149;
+      --orange: #e3b341;
+      --text: #c9d1d9;
+      --muted: #8b949e;
+      --font: 'Courier New', Courier, monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: var(--cyan); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(13,17,23,0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo { font-family: var(--font); color: var(--green); font-size: 1rem; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a { color: var(--muted); font-size: 0.88rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--green); text-decoration: none; }
+
+    /* SECTIONS */
+    section { padding: 90px 10% 60px; max-width: 1100px; margin: 0 auto; }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding-top: 100px;
+    }
+    .terminal-prefix { color: var(--green); font-family: var(--font); font-size: 0.9rem; margin-bottom: 12px; }
+    #hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); color: #e6edf3; font-weight: 700; line-height: 1.15; }
+    #hero h1 span { color: var(--green); }
+    #hero .role { font-size: clamp(1rem, 2.5vw, 1.4rem); color: var(--cyan); margin: 14px 0 22px; font-family: var(--font); }
+    #hero p { color: var(--muted); max-width: 600px; font-size: 1rem; margin-bottom: 36px; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+    .badge {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; color: var(--text);
+      font-family: var(--font);
+    }
+    .badge.green { border-color: var(--green); color: var(--green); }
+    .badge.cyan { border-color: var(--cyan); color: var(--cyan); }
+    .badge.orange { border-color: var(--orange); color: var(--orange); }
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn {
+      padding: 10px 24px; border-radius: 6px; font-size: 0.9rem; cursor: pointer;
+      font-family: var(--font); transition: all .2s; border: 1px solid;
+    }
+    .btn-primary { background: var(--green); color: #000; border-color: var(--green); font-weight: 700; }
+    .btn-primary:hover { background: #2ebc47; text-decoration: none; }
+    .btn-outline { background: transparent; color: var(--cyan); border-color: var(--cyan); }
+    .btn-outline:hover { background: rgba(88,166,255,.08); text-decoration: none; }
+
+    /* SECTION HEADERS */
+    .section-title {
+      font-family: var(--font); font-size: 0.85rem;
+      color: var(--green); margin-bottom: 8px;
+    }
+    h2 { font-size: 1.8rem; color: #e6edf3; margin-bottom: 40px; }
+    h2 span { color: var(--green); }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .about-text p { color: var(--muted); margin-bottom: 14px; }
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 20px; text-align: center;
+    }
+    .stat-card .number { font-size: 2rem; font-weight: 700; color: var(--green); font-family: var(--font); }
+    .stat-card .label { font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 24px;
+      transition: border-color .2s;
+    }
+    .skill-card:hover { border-color: var(--green); }
+    .skill-card h3 { color: var(--green); font-size: 0.9rem; font-family: var(--font); margin-bottom: 14px; }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 7px; }
+    .tag {
+      background: rgba(57,211,83,.08); border: 1px solid rgba(57,211,83,.2);
+      color: var(--text); padding: 3px 10px; border-radius: 4px; font-size: 0.78rem;
+      font-family: var(--font);
+    }
+    .tag.blue { background: rgba(88,166,255,.08); border-color: rgba(88,166,255,.2); }
+    .tag.red { background: rgba(248,81,73,.08); border-color: rgba(248,81,73,.2); }
+    .tag.orange { background: rgba(227,179,65,.08); border-color: rgba(227,179,65,.2); }
+
+    /* CERTS */
+    .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .cert-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 24px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .cert-issuer { font-size: 0.75rem; color: var(--muted); font-family: var(--font); }
+    .cert-name { font-size: 1rem; color: #e6edf3; font-weight: 600; }
+    .cert-meta { font-size: 0.78rem; color: var(--green); font-family: var(--font); }
+    .cert-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+
+    /* PROJECTS */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 26px;
+      transition: border-color .2s, transform .2s;
+    }
+    .project-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+    .project-type { font-size: 0.75rem; color: var(--muted); font-family: var(--font); margin-bottom: 8px; }
+    .project-card h3 { color: #e6edf3; font-size: 1.05rem; margin-bottom: 10px; }
+    .project-card p { color: var(--muted); font-size: 0.88rem; margin-bottom: 16px; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+    .stack-tag {
+      background: rgba(88,166,255,.08); border: 1px solid rgba(88,166,255,.2);
+      color: var(--cyan); padding: 2px 9px; border-radius: 4px; font-size: 0.75rem;
+      font-family: var(--font);
+    }
+    .project-links { margin-top: 16px; display: flex; gap: 14px; }
+    .project-links a { font-size: 0.82rem; color: var(--cyan); }
+
+    /* CONTACT */
+    .contact-box {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 50px; text-align: center; max-width: 600px; margin: 0 auto;
+    }
+    .contact-box p { color: var(--muted); margin-bottom: 28px; }
+    .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin-top: 28px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 8px;
+      background: var(--bg); border: 1px solid var(--border);
+      padding: 10px 20px; border-radius: 6px; font-size: 0.85rem;
+      color: var(--text); transition: border-color .2s;
+    }
+    .contact-link:hover { border-color: var(--green); text-decoration: none; color: var(--green); }
+
+    /* FOOTER */
+    footer {
+      text-align: center; padding: 30px; color: var(--muted);
+      font-size: 0.8rem; border-top: 1px solid var(--border); font-family: var(--font);
+    }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+    /* SCROLL OFFSET for fixed nav */
+    [id] { scroll-margin-top: 72px; }
+
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; }
+      section { padding: 80px 5% 50px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <span class="nav-logo">~/mohammed-al-arjan</span>
+  <div class="nav-links">
+    <a href="#about">about</a>
+    <a href="#skills">skills</a>
+    <a href="#certifications">certs</a>
+    <a href="#projects">projects</a>
+    <a href="#contact">contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="terminal-prefix">$ whoami</div>
+  <h1>Mohammed<br><span>Al Arjan</span></h1>
+  <div class="role">Penetration Tester</div>
+  <p>
+    BSc Computer Science · eJPT · CompTIA Security+ · HTB CPTS Path Complete ·
+    TryHackMe Top 1% [0xD] Legend
+  </p>
+  <div class="hero-badges">
+    <span class="badge green">eJPT Certified</span>
+    <span class="badge cyan">CompTIA Security+</span>
+    <span class="badge orange">HTB CPTS Path</span>
+    <span class="badge green">TryHackMe Top 1%</span>
+    <span class="badge">239+ Rooms</span>
+    <span class="badge">39 Badges</span>
+  </div>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="#contact">Get In Touch</a>
+    <a class="btn btn-outline" href="https://tryhackme.com/p/MohammedAlArjan" target="_blank">TryHackMe Profile</a>
+    <a class="btn btn-outline" href="https://github.com/MohammedAlArjan" target="_blank">GitHub</a>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-title">$ cat about.txt</div>
+  <h2>About <span>Me</span></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a penetration tester based in Saudi Arabia with a BSc in Computer Science
+        from Imam Abdulrahman bin Faisal University. I've completed the full
+        <strong style="color:#e6edf3">HTB Academy CPTS path</strong> — covering
+        Active Directory attacks, web exploitation, privilege escalation on Linux and
+        Windows, and full enterprise network assessments.
+      </p>
+      <p>
+        Beyond the labs I hold an <strong style="color:#e6edf3">eJPT</strong> and
+        <strong style="color:#e6edf3">CompTIA Security+</strong> and maintain a
+        <strong style="color:#39d353">Top 1% rank on TryHackMe</strong>
+        with the [0xD] Legend badge.
+      </p>
+      <p>
+        My background includes software development (C#, ASP.NET, PHP, React) which
+        gives me an attacker's edge when assessing web applications — I understand
+        how they're built and exactly where they break.
+      </p>
+    </div>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="number">Top 1%</div>
+        <div class="label">TryHackMe Rank</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">239+</div>
+        <div class="label">Rooms Completed</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">39</div>
+        <div class="label">THM Badges</div>
+      </div>
+      <div class="stat-card">
+        <div class="number">16</div>
+        <div class="label">CPTS Modules</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-title">$ ls skills/</div>
+  <h2>Technical <span>Skills</span></h2>
+  <div class="skills-grid">
+
+    <div class="skill-card">
+      <h3>// Web Application Pentesting</h3>
+      <div class="tag-list">
+        <span class="tag">Burp Suite</span>
+        <span class="tag">ffuf</span>
+        <span class="tag">SQLMap</span>
+        <span class="tag">Gobuster</span>
+        <span class="tag">SQLi</span>
+        <span class="tag">XSS</span>
+        <span class="tag">LFI / RFI</span>
+        <span class="tag">File Upload Bypass</span>
+        <span class="tag">Command Injection</span>
+        <span class="tag">IDOR</span>
+        <span class="tag">XXE</span>
+        <span class="tag">HTTP Verb Tampering</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h3>// Active Directory</h3>
+      <div class="tag-list">
+        <span class="tag blue">BloodHound</span>
+        <span class="tag blue">Impacket</span>
+        <span class="tag blue">CrackMapExec</span>
+        <span class="tag blue">Evil-WinRM</span>
+        <span class="tag blue">Kerberoasting</span>
+        <span class="tag blue">AS-REP Roasting</span>
+        <span class="tag blue">DCSync</span>
+        <span class="tag blue">Pass-the-Hash</span>
+        <span class="tag blue">Pass-the-Ticket</span>
+        <span class="tag blue">ACL Abuse</span>
+        <span class="tag blue">LDAP Enumeration</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h3>// Linux Privilege Escalation</h3>
+      <div class="tag-list">
+        <span class="tag">LinPEAS</span>
+        <span class="tag">SUID / GUID Abuse</span>
+        <span class="tag">Sudo Misconfig</span>
+        <span class="tag">Cron Job Abuse</span>
+        <span class="tag">Linux Capabilities</span>
+        <span class="tag">Kernel Exploits</span>
+        <span class="tag">Docker Escape</span>
+        <span class="tag">Logrotate</span>
+        <span class="tag">NFS Exploitation</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h3>// Windows Privilege Escalation</h3>
+      <div class="tag-list">
+        <span class="tag red">WinPEAS</span>
+        <span class="tag red">Token Impersonation</span>
+        <span class="tag red">SeImpersonatePrivilege</span>
+        <span class="tag red">Service Exploits</span>
+        <span class="tag red">Credential Theft</span>
+        <span class="tag red">Mimikatz</span>
+        <span class="tag red">UAC Bypass</span>
+        <span class="tag red">Registry Abuse</span>
+        <span class="tag red">DLL Hijacking</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h3>// Recon & Enumeration</h3>
+      <div class="tag-list">
+        <span class="tag orange">Nmap</span>
+        <span class="tag orange">enum4linux</span>
+        <span class="tag orange">Nikto</span>
+        <span class="tag orange">WhatWeb</span>
+        <span class="tag orange">SMB Enumeration</span>
+        <span class="tag orange">RPC / LDAP</span>
+        <span class="tag orange">Netcat</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h3>// Common Applications</h3>
+      <div class="tag-list">
+        <span class="tag">WordPress</span>
+        <span class="tag">Joomla</span>
+        <span class="tag">Drupal</span>
+        <span class="tag">Jenkins</span>
+        <span class="tag">Tomcat</span>
+        <span class="tag">CGI Exploitation</span>
+        <span class="tag">Thick Clients</span>
+        <span class="tag">WPScan</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h3>// Programming</h3>
+      <div class="tag-list">
+        <span class="tag blue">Python</span>
+        <span class="tag blue">Bash</span>
+        <span class="tag blue">C++</span>
+        <span class="tag blue">JavaScript</span>
+        <span class="tag blue">Java</span>
+        <span class="tag blue">Kotlin</span>
+        <span class="tag blue">PHP</span>
+        <span class="tag blue">C# / ASP.NET</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <h3>// Reporting & Methodology</h3>
+      <div class="tag-list">
+        <span class="tag">Pentest Reporting</span>
+        <span class="tag">PTES Framework</span>
+        <span class="tag">Vulnerability Assessment</span>
+        <span class="tag">Risk Rating</span>
+        <span class="tag">Executive Summaries</span>
+        <span class="tag">Remediation Guidance</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-title">$ cat certifications.json</div>
+  <h2>Certifications</h2>
+  <div class="certs-grid">
+
+    <div class="cert-card" style="border-color: rgba(57,211,83,.3)">
+      <div class="cert-issuer">eLearnSecurity</div>
+      <div class="cert-name">Junior Penetration Tester (eJPT)</div>
+      <div class="cert-meta">Valid: 03/2026 – 03/2029</div>
+      <div class="cert-tags">
+        <span class="tag">Penetration Testing</span>
+        <span class="tag">Network Security</span>
+        <span class="tag">Web Exploitation</span>
+        <span class="tag">Enumeration</span>
+      </div>
+    </div>
+
+    <div class="cert-card" style="border-color: rgba(88,166,255,.3)">
+      <div class="cert-issuer">CompTIA</div>
+      <div class="cert-name">Security+ (SY0-701)</div>
+      <div class="cert-meta">Valid: 01/2026 – 01/2029</div>
+      <div class="cert-tags">
+        <span class="tag blue">Threat Detection</span>
+        <span class="tag blue">IAM</span>
+        <span class="tag blue">Risk Management</span>
+        <span class="tag blue">Cryptography</span>
+        <span class="tag blue">Incident Response</span>
+      </div>
+    </div>
+
+    <div class="cert-card" style="border-color: rgba(227,179,65,.3)">
+      <div class="cert-issuer">TryHackMe</div>
+      <div class="cert-name">Jr Penetration Tester</div>
+      <div class="cert-meta">Completed: 02/2026 · Rank: Top 1% [0xD] Legend</div>
+      <div class="cert-tags">
+        <span class="tag orange">Web Exploitation</span>
+        <span class="tag orange">Privilege Escalation</span>
+        <span class="tag orange">AD Attacks</span>
+        <span class="tag orange">239+ Rooms</span>
+      </div>
+    </div>
+
+    <div class="cert-card" style="border-color: rgba(248,81,73,.3)">
+      <div class="cert-issuer">Hack The Box Academy</div>
+      <div class="cert-name">CPTS Path — Completed</div>
+      <div class="cert-meta">All 16 modules · Enterprise-level labs</div>
+      <div class="cert-tags">
+        <span class="tag red">Active Directory</span>
+        <span class="tag red">Web Attacks</span>
+        <span class="tag red">PrivEsc</span>
+        <span class="tag red">Enterprise Networks</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-title">$ ls projects/</div>
+  <h2>Projects</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-type">AI & IoT · Graduation Project</div>
+      <h3>Health Monitoring System</h3>
+      <p>
+        Real-time biometric monitoring system. Collects BPM and activity data via Bluetooth
+        from Arduino sensors, runs TensorFlow inference, and visualizes results on a React
+        admin dashboard backed by Firebase and Cloud SQL.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Arduino</span>
+        <span class="stack-tag">Kotlin</span>
+        <span class="stack-tag">TensorFlow</span>
+        <span class="stack-tag">React</span>
+        <span class="stack-tag">Firebase</span>
+        <span class="stack-tag">Cloud SQL</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/MohammedAlArjan" target="_blank">→ View on GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-type">Full-Stack Web · University Project</div>
+      <h3>Video Game Store</h3>
+      <p>
+        E-commerce platform with product browsing, filtering, cart management, and
+        a secure checkout flow. Built with Laravel MVC and a responsive frontend.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">PHP</span>
+        <span class="stack-tag">Laravel</span>
+        <span class="stack-tag">JavaScript</span>
+        <span class="stack-tag">MySQL</span>
+        <span class="stack-tag">HTML/CSS</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/MohammedAlArjan" target="_blank">→ View on GitHub</a>
+      </div>
+    </div>
+
+    <div class="project-card" style="border: 1px dashed var(--border); opacity: .7;">
+      <div class="project-type">Cybersecurity · In Progress</div>
+      <h3>Coming Soon</h3>
+      <p>
+        A new cybersecurity-focused project currently in development.
+        Check back soon or follow on GitHub for updates.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Security</span>
+        <span class="stack-tag">TBD</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-title">$ ping contact</div>
+  <h2>Get In <span>Touch</span></h2>
+  <div class="contact-box">
+    <p>
+      I'm actively looking for penetration testing opportunities, bug bounty work,
+      or security roles. Feel free to reach out.
+    </p>
+    <a class="btn btn-primary" href="mailto:MohammedAlArjan@hotmail.com">MohammedAlArjan@hotmail.com</a>
+    <div class="contact-links">
+      <a class="contact-link" href="https://github.com/MohammedAlArjan" target="_blank">
+        GitHub
+      </a>
+      <a class="contact-link" href="https://tryhackme.com/p/MohammedAlArjan" target="_blank">
+        TryHackMe
+      </a>
+      <a class="contact-link" href="https://linkedin.com/in/mohammedalArjan" target="_blank">
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span style="color:var(--green)">Mohammed M. Al Arjan</span> · Built with HTML/CSS · Hosted on GitHub Pages
+</footer>
+
+</body>
+</html>
